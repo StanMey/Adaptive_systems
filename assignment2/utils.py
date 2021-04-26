@@ -7,12 +7,7 @@ def show_utility(values: np.ndarray):
     for row in range(values.shape[0]):
         print(row_divider)
         out = "| "
-        for col in range(self.utility.shape[1]):
-            out += str(round(self.utility[(row, col)], 2)).ljust(6) + ' | '
+        for col in range(values.shape[1]):
+            out += str(round(values[(row, col)], 2)).ljust(6) + ' | '
         print(out)
     print(row_divider)
-
-
-def show_policy(utility: np.ndarray):
-    """"""
-    ...
