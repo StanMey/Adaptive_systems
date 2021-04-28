@@ -97,3 +97,32 @@ def show_utility(values: np.ndarray):
             out += str(round(values[(row, col)], 2)).ljust(6) + ' | '
         print(out)
     print(row_divider)
+
+
+def show_policy(env: Maze, q_table):
+        """Prints the q-table in a matplotlib figure."""
+        plt.rc('figure', figsize=(12,6))
+        for row in range(env.R.shape[0]):
+            for col in range(env.R.shape[1]):
+                # set the x and y value for the place of the state in the figure
+                x, y = (col, env.R.shape[1] - row)
+                if (row, col) in env.end_states:
+                    # end state so draw a point
+                    plt.scatter(x, y, s=40)
+                else:
+                    values = list(map(lambda x: round(x, 2), q_table[(row, col)]))
+                    for value, direction in zip(values, ["up", "right", "left", "down"]):
+                        if direction == "up":
+                            plt.arrow(x, y, dx=0, dy=0.15, width=0.02)
+                            plt.text(x-0.05, y+0.3, str(value))
+                        if direction == "right":
+                            plt.arrow(x, y, dx=0.15, dy=0, width=0.02)
+                            plt.text(x+0.3, y, str(value))
+                        if direction == "left":
+                            plt.arrow(x, y, dx=-0.15, dy=0, width=0.02)
+                            plt.text(x-0.4, y, str(value))
+                        if direction == "down":
+                            plt.arrow(x, y, dx=0, dy=-0.15, width=0.02)
+                            plt.text(x-0.05, y-0.35, str(value))
+        plt.axis("off")
+        plt.show()
