@@ -110,19 +110,25 @@ def show_policy(env: Maze, q_table):
                     # end state so draw a point
                     plt.scatter(x, y, s=40)
                 else:
-                    values = list(map(lambda x: round(x, 2), q_table[(row, col)]))
+                    values = list(map(lambda x: round(x, 3), q_table[(row, col)]))
+                    max_elem = max(values)
                     for value, direction in zip(values, ["up", "right", "left", "down"]):
+                        if value == max_elem:
+                            color = "C3"
+                        else:
+                            color = "C0"
+
                         if direction == "up":
-                            plt.arrow(x, y, dx=0, dy=0.15, width=0.02)
+                            plt.arrow(x, y, dx=0, dy=0.15, width=0.02, color=color)
                             plt.text(x-0.05, y+0.3, str(value))
                         if direction == "right":
-                            plt.arrow(x, y, dx=0.15, dy=0, width=0.02)
+                            plt.arrow(x, y, dx=0.15, dy=0, width=0.02, color=color)
                             plt.text(x+0.3, y, str(value))
                         if direction == "left":
-                            plt.arrow(x, y, dx=-0.15, dy=0, width=0.02)
+                            plt.arrow(x, y, dx=-0.15, dy=0, width=0.02, color=color)
                             plt.text(x-0.4, y, str(value))
                         if direction == "down":
-                            plt.arrow(x, y, dx=0, dy=-0.15, width=0.02)
+                            plt.arrow(x, y, dx=0, dy=-0.15, width=0.02, color=color)
                             plt.text(x-0.05, y-0.35, str(value))
         plt.axis("off")
         plt.show()
